@@ -1,11 +1,27 @@
 package com.nextdot.realtimesearchwithrxandroid.Model.RetrofitModel;
 
+
+import com.google.gson.annotations.SerializedName;
+
+
 public class NoticeItem{
+
+	@SerializedName("image_link")
 	private String imageLink;
+
+	@SerializedName("pdf_link")
 	private String pdfLink;
+
+	@SerializedName("id")
 	private String id;
+
+	@SerializedName("time")
 	private String time;
+
+	@SerializedName("title")
 	private String title;
+
+	@SerializedName("descript")
 	private String descript;
 
 	public void setImageLink(String imageLink){
@@ -55,4 +71,17 @@ public class NoticeItem{
 	public String getDescript(){
 		return descript;
 	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"NoticeItem{" + 
+			"image_link = '" + imageLink + '\'' + 
+			",pdf_link = '" + pdfLink + '\'' + 
+			",id = '" + id + '\'' + 
+			",time = '" + time + '\'' + 
+			",title = '" + title + '\'' + 
+			",descript = '" + descript + '\'' + 
+			"}";
+		}
 }

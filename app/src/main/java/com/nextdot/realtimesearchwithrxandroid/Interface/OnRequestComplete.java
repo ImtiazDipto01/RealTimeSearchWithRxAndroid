@@ -1,6 +1,5 @@
 package com.nextdot.realtimesearchwithrxandroid.Interface;
 
-import com.nextdot.realtimesearchwithrxandroid.Model.RetrofitModel.NoticeItem;
 import com.nextdot.realtimesearchwithrxandroid.Model.RetrofitModel.NoticeRoot;
 
 /**

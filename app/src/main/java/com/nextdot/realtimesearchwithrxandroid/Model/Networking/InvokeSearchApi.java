@@ -8,7 +8,6 @@ import com.nextdot.realtimesearchwithrxandroid.Model.RetrofitModel.NoticeRoot;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
@@ -21,15 +20,16 @@ import io.reactivex.subjects.PublishSubject;
 
 public class InvokeSearchApi {
 
-    OnRequestComplete onRequestComplete ;
+    OnRequestComplete requestComplete ;
     RetrofitInterface retrofitInterface ;
     PublishSubject publishSubject ;
 
-    public InvokeSearchApi(final Context context, String end_point, String key_value, final OnRequestComplete onRequestComplete){
-        this.onRequestComplete = onRequestComplete ;
+    public InvokeSearchApi(final Context context, final String end_point, final String key_value, final OnRequestComplete onRequestComplete){
+        this.requestComplete = onRequestComplete ;
         retrofitInterface = RetrofitClient.getRetrofitClient().create(RetrofitInterface.class) ;
-        String url = RetrofitClient.BASE_URL+end_point ;
-        Log.d("++URL++", url) ;
+        String url = RetrofitClient.BASE_URL;
+
+        Log.d("++URL++", key_value) ;
 
         if(publishSubject == null){
 
@@ -37,14 +37,13 @@ public class InvokeSearchApi {
             publishSubject
                     .debounce(300, TimeUnit.MILLISECONDS)
                     .distinctUntilChanged()
-                    .switchMap(searchValue -> retrofitInterface.getSearchData(url, key_value))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .switchMap(searchValue -> retrofitInterface.getSearchData(end_point, key_value).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()))
                     .subscribeWith(new DisposableObserver<NoticeRoot>() {
 
                         @Override
                         public void onNext(NoticeRoot noticeRoot) {
-                            onRequestComplete.onRequestComplete(noticeRoot);
+                            Log.d("++stage++", "on Next") ;
+                            requestComplete.onRequestComplete(noticeRoot);
                         }
 
                         @Override
@@ -57,7 +56,7 @@ public class InvokeSearchApi {
 
                         }
                     });
-
         }
+        publishSubject.onNext(key_value);
     }
 }

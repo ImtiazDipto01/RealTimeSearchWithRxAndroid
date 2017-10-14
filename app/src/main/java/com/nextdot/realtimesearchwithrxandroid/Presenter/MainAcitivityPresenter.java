@@ -1,6 +1,5 @@
 package com.nextdot.realtimesearchwithrxandroid.Presenter;
 
-import com.nextdot.realtimesearchwithrxandroid.Activities.MainActivity;
 import com.nextdot.realtimesearchwithrxandroid.Interface.MainActivityView;
 import com.nextdot.realtimesearchwithrxandroid.Interface.OnRequestComplete;
 import com.nextdot.realtimesearchwithrxandroid.Model.Networking.InvokeSearchApi;
@@ -20,9 +19,8 @@ public class MainAcitivityPresenter {
 
     }
 
-    public void getSearchResult(String key_value, String end_point){
-        this.key_value = key_value ;
-        this.end_point = end_point ;
+    public void getSearchResult(String end_point, String key_value){
+
         new InvokeSearchApi(mainActivityView.getAppContext(), end_point, key_value, new OnRequestComplete() {
             @Override
             public void onRequestComplete(NoticeRoot noticeRoot) {
@@ -34,5 +32,6 @@ public class MainAcitivityPresenter {
 
             }
         });
+
     }
 }

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mainAcitivityPresenter.getSearchResult(newText, end_point);
+                mainAcitivityPresenter.getSearchResult(end_point, newText);
                 return false;
             }
         });
@@ -82,6 +82,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     @Override
     public Context getAppContext() {
-        return null;
+        return getApplicationContext();
     }
 }
