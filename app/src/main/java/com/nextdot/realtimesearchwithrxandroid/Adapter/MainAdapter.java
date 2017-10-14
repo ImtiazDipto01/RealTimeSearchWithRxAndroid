@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nextdot.realtimesearchwithrxandroid.Model.RetrofitModel.NoticeItem;
+import com.nextdot.realtimesearchwithrxandroid.Model.RetrofitModel.NoticeRoot;
 import com.nextdot.realtimesearchwithrxandroid.R;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -60,6 +62,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainAdapterVie
             name = (TextView) itemView.findViewById(R.id.name);
             age = (TextView) itemView.findViewById(R.id.age);
         }
+    }
+
+    public void setFilter(List<NoticeItem> searchlist){
+        this.list.clear();
+        this.list = searchlist ;
+        notifyDataSetChanged();
+    }
+
+    public void clearList(){
+        this.list.clear();
+        notifyDataSetChanged();
     }
 }
 
